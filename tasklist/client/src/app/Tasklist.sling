@@ -11,6 +11,28 @@ ui LayerWidget
             VerticalBoxWidget list {
                 margin = context.getHeightValue("5mm")
                 spacing = context.getHeightValue("5mm")
+
+                LabelWidget myLabel {
+                    text = "Adding TASK"
+                    textColor = Color.white()
+                }
+
+                TextInputWidget addingTaskTextbox {
+                    type = TextInputWidget.TYPE_NAME
+                    placeholder = "Input Something"
+                    backgroundColor = Color.instance("#244589")
+                    fontSize = context.getHeightValue("5mm")
+                    padding = context.getHeightValue("5mm")
+                }
+
+                TextButtonWidget btnAddTask : 0.2 {
+                    text = "Save"
+                    backgroundColor = Color.instance("#343455")
+                    fontSize = context.getHeightValue("8mm")
+                    clickHandler = func {
+                        onAddingTaskClicked()
+                    }
+                }
             }
         }
     }
@@ -39,3 +61,8 @@ func initializeWidget override
 
 func getWidgetTitle as string:
     return "Task list"
+
+func onAddingTaskClicked
+{
+
+}
