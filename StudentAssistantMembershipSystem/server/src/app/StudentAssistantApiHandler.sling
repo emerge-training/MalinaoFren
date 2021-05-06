@@ -1,0 +1,62 @@
+import jk.http.client
+import jk.http.worker
+
+class is HTTPRPCRouter #webapi2:
+
+model UserRequest
+{
+    name as string
+    password as string
+}
+
+GET "/user"
+{
+    var users = assert getDatabase().getUsers()
+    sendOk users
+}
+
+POST "/user"
+{
+    var requestData = assert UserRequest.forJsonString(req.getBodyString()):
+        sendError "invalidRequest"
+    var user = new StudentAssistantDatabase.UserAccount()
+    user.setName(requestData.getName())
+    user.setPassword(requestData.getPassword())
+    assert getDatabase().addUser(user):
+        sendError "failedToAddUser"
+    sendOk
+}
+
+PUT "/user/:id"
+{
+    var requestData = assert UserRequest.forJsonString(req.getBodyString()):
+        sendError "invalidRequest"
+    var user = new StudentAssistantDatabase.UserAccount()
+    user.setName(requestData.getName())
+    user.setPassword(requestData.getPassword())
+    assert getDatabase().updateUser(vars.getString("id"), user):
+        sendError "failedToUpdateUser"
+    sendOk
+}
+
+DELETE "/user/:id"
+{
+    assert getDatabase().deleteUser(vars.getString("id")):
+        sendError "failedToDeleteUser"
+    sendOk
+}
+
+var db as StudentAssistantDatabase
+var cors = StudentAssistantConfig.getCorsUtil()
+
+func getDatabase as StudentAssistantDatabase
+{
+    if not db {
+        db = StudentAssistantDatabase.forContext(getCtx())
+        db.updateTables()
+    }
+    return db
+}
+
+func postProcess(req as HTTPWorkerRequest, resp as HTTPWorkerResponse) override:
+    cors.handleWorkerRequest(req, resp)

@@ -1,0 +1,84 @@
+import jk.widget.common
+
+class  #widget:
+
+ui VerticalBoxWidget
+{
+    spacing = context.getHeightValue("2000um")
+    margin = context.getHeightValue("5mm")
+    HorizontalBoxWidget {
+        spacing = context.getHeightValue("100um")
+        TextButtonWidget Home_btn : 1.0 {
+            text = "Home"
+            textColor = Color.white()
+            padding = context.getHeightValue("100um")
+            backgroundColor = Color.black()
+            clickHandler = func{
+                NavigationWidget.switchToContainer(this, new Home(context))
+            }
+        }
+        TextButtonWidget RegSA_btn: 1.0 {
+            text = "Registration"
+            textColor = Color.white()
+            padding = context.getHeightValue("100um")
+            backgroundColor = Color.black()
+            clickHandler = func{
+                NavigationWidget.switchToContainer(this, new Registration(context))
+            }
+        }
+        TextButtonWidget Account_btn: 1.0 {
+            text = "Account"
+            textColor = Color.white()
+            padding = context.getHeightValue("100um")
+            backgroundColor = Color.black()
+            clickHandler = func{
+                NavigationWidget.switchToContainer(this, new Account(context))
+            }
+        }
+        TextButtonWidget Records_btn: 1.0 {
+            text = "Records"
+            textColor = Color.white()
+            padding = context.getHeightValue("100um")
+            backgroundColor = Color.black()
+            clickHandler = func{
+                NavigationWidget.switchToContainer(this, new Records(context))
+            }
+        }
+        TextButtonWidget Benefits_btn: 1.0 {
+            text = "Benefits"
+            textColor = Color.white()
+            padding = context.getHeightValue("100um")
+            backgroundColor = Color.black()
+            clickHandler = func{
+                NavigationWidget.switchToContainer(this, new Benefits(context))
+            }
+        }
+        TextButtonWidget ByLaws_btn: 1.0 {
+            text = "By Laws"
+            textColor = Color.white()
+            padding = context.getHeightValue("100um")
+            backgroundColor = Color.black()
+            clickHandler = func{
+                NavigationWidget.switchToContainer(this, new ByLaws(context))
+            }
+        }
+    }
+
+    VerticalScrollerWidget {
+        scrollBarDisabled = true
+        LayerWithBackgroundColorWidget container {
+            color = Color.instance("#b3e3e1")
+        }
+        AlignWidget {
+			VerticalBoxWidget vbox : 0.5, 0.5, false {
+				margin = context.getHeightValue("5mm")
+				spacing = context.getHeightValue("3500um")
+			}
+		}
+    }
+}
+
+func initializeWidget override
+{
+    base.initializeWidget()
+}

@@ -1,0 +1,98 @@
+import jk.log
+import jk.sqlite
+import jk.mysql
+import jk.sql
+import jk.env
+import jk.time
+
+class:
+
+model UserAccount
+{
+    id as string
+    name as string
+    password as string
+}
+
+const USER = "user"
+pvar db as MySQLDatabase
+
+func forContext(ctx as LoggingContext) static as this
+{
+    var cstr = EnvironmentVariable.get("USER_DATABASE")
+    Log.debug(ctx, "Opening database connection: '" .. cstr .. "'")
+    db = MySQLDatabase.forConnectionStringSync(ctx, cstr)
+    if not db:
+        Error.throw("failedToConnectToDatabase", cstr)
+    var v = new this()
+    v.setDb(db)
+    return v
+}
+
+func updateTable(table as SQLTableInfo)
+{
+    if not table:
+        Error.throw("nullTable", "updateTable")
+    if not db:
+        Error.throw("nullDb", "updateTable")
+    if not db.ensureTableExistsSync(table):
+        Error.throw("failedToUpdateTable", table.getName())
+}
+
+func updateTables
+{
+    var user = SQLTableInfo.forName(USER)
+    user.addStringKeyColumn("id")
+    user.addStringColumn("name")
+    user.addStringColumn("password")
+    updateTable(user)
+}
+
+func addUser(user as UserAccount) as UserAccount
+{
+    assert user
+    user.setId("1")
+    assert db.executeSync(db.prepareInsertStatementSync(USER, user.toDynamicMap()))
+    return user
+}
+
+func updateUser(id as string, user as UserAccount) as bool
+{
+    assert user
+    var criteria = new UserAccount()
+    criteria.setId(id)
+    return db.executeSync(db.prepareUpdateStatementSync(USER, criteria.toDynamicMap(), user.toDynamicMap()))
+}
+
+func deleteUser(id as string) as bool
+{
+    var criteria = new UserAccount()
+    criteria.setId(id)
+    return db.executeSync(db.prepareDeleteStatementSync(USER, criteria.toDynamicMap()))
+}
+
+func getUsers as DynamicMap
+{
+    var v = new vector<UserAccount>
+    var it = assert db.querySync(db.prepareQueryAllStatementSync(USER)):
+        return null
+    while it {
+        var o = it.next()
+        if not o:
+            break
+        var user = UserAccount.forJsonObject(o)
+        if not user:
+            continue
+        v += user
+    }
+    var data = new DynamicMap()
+    data.setObject("records", v)
+    return data
+}
+
+func close
+{
+    if db:
+        db.closeSync()
+    db = null
+}

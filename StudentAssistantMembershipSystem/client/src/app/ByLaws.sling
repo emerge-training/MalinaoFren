@@ -1,0 +1,137 @@
+import jk.widget.common
+
+class  #widget:
+
+ui VerticalBoxWidget
+{
+    spacing = context.getHeightValue("2000um")
+    margin = context.getHeightValue("5mm")
+    HorizontalBoxWidget {
+        spacing = context.getHeightValue("100um")
+        TextButtonWidget Home_btn : 1.0 {
+            text = "Home"
+            textColor = Color.white()
+            padding = context.getHeightValue("100um")
+            backgroundColor = Color.black()
+            clickHandler = func{
+                NavigationWidget.switchToContainer(this, new Home(context))
+            }
+        }
+        TextButtonWidget RegSA_btn: 1.0 {
+            text = "Registration"
+            textColor = Color.white()
+            padding = context.getHeightValue("100um")
+            backgroundColor = Color.black()
+            clickHandler = func{
+                NavigationWidget.switchToContainer(this, new Registration(context))
+            }
+        }
+        TextButtonWidget Account_btn: 1.0 {
+            text = "Account"
+            textColor = Color.white()
+            padding = context.getHeightValue("100um")
+            backgroundColor = Color.black()
+            clickHandler = func{
+                NavigationWidget.switchToContainer(this, new Account(context))
+            }
+        }
+        TextButtonWidget Records_btn: 1.0 {
+            text = "Records"
+            textColor = Color.white()
+            padding = context.getHeightValue("100um")
+            backgroundColor = Color.black()
+            clickHandler = func{
+                NavigationWidget.switchToContainer(this, new Records(context))
+            }
+        }
+        TextButtonWidget Benefits_btn: 1.0 {
+            text = "Benefits"
+            textColor = Color.white()
+            padding = context.getHeightValue("100um")
+            backgroundColor = Color.black()
+            clickHandler = func{
+                NavigationWidget.switchToContainer(this, new Benefits(context))
+            }
+        }
+        TextButtonWidget ByLaws_btn: 1.0 {
+            text = "By Laws"
+            textColor = Color.white()
+            padding = context.getHeightValue("100um")
+            backgroundColor = Color.black()
+            clickHandler = func{
+                NavigationWidget.switchToContainer(this, new ByLaws(context))
+            }
+        }
+    }
+
+    VerticalScrollerWidget {
+        scrollBarDisabled = true
+        LayerWithBackgroundColorWidget container {
+            color = Color.instance("#b3e3e1")
+        }
+        AlignWidget {
+			VerticalBoxWidget vbox : 0.5, 0.5, false {
+				margin = context.getHeightValue("5mm")
+				spacing = context.getHeightValue("3500um")
+                LabelWidget myLabel {
+                    text ="BY LAWS"
+                    textColor = Color.black()
+                }
+                LabelWidget bylawsArt1Content {
+                    text ="Article 1"
+                    textColor = Color.black()
+                }
+                LabelWidget bylawsTextContent {
+                    text ="GENERAL PROVISIONS AND DEFINITION OF TERMS"
+                    textColor = Color.black()
+                }
+                LabelWidget bylawsSec1Content {
+                    text ="Section 1: This organization shall be known as the Student Assistants’ Organization herein referred to as ACLC-SAO. "
+                    textColor = Color.black()
+                }
+                LabelWidget bylawsSec2Content {
+                    text ="Section 2: ACLC-SAO is the organization of the bona fide Student Assistants of ACLC College of Butuan."
+                    textColor = Color.black()
+                }
+                LabelWidget bylawsSec3Content {
+                    text ="Section 3: ACLC-SAO is a democratic, non-partisan, non-political, and non-profit student organization."
+                    textColor = Color.black()
+                }
+                LabelWidget bylawsSec4Content {
+                    text ="Section 4: STANDCOM shall mean Standing Committee."
+                    textColor = Color.black()
+                }
+                LabelWidget bylawsSec5Content {
+                    text ="Section 5: The organization calendar shall conform to the school calendar and shall mean one (1) school year from the start to the end of each academic year."
+                    textColor = Color.black()
+                }
+                LabelWidget bylawsSec6Content {
+                    text ="Section 6: The activities of the organization shall mean all that is in line with and pursuant to the objectives of the organization and the institution."
+                    textColor = Color.black()
+                }
+                LabelWidget bylawsSec7Content {
+                    text ="Section 7: The Standing Committee shall mean the collective body of elected and appointed officers of the organization."
+                    textColor = Color.black()
+                }
+                LabelWidget bylawsSec8Content {
+                    text ="Section 8: S.A. shall mean the members of the organization."
+                    textColor = Color.black()
+                }
+                LabelWidget bylawsSec9Content {
+                    text ="Section 9: Reasonable time for inspection of records and reports shall mean fifteen (15) working days after the occurrence of a major / minor activity."
+                    textColor = Color.black()
+                }
+                LabelWidget bylawsSec10Content {
+                    text ="Section 10: Standing Committee is composed of the officers either appointed or elected."
+                    textColor = Color.black()
+                }
+
+			}
+		}
+    }
+}
+
+func initializeWidget override
+{
+    base.initializeWidget()
+}

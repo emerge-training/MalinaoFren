@@ -1,0 +1,9 @@
+{
+    vendorId "eqela"
+    projectId "StudentAssistantMembershipSystem"
+    title "Sling StudentAssistant"
+    libraries [
+            "jk-db:0.21.0"
+            "jk-server:0.22.0"
+    ]
+}

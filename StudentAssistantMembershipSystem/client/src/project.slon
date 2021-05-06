@@ -1,0 +1,11 @@
+{
+    vendorId "eqela"
+    projectId "StudentAssistantMembershipSystem"
+    title "Sling StudentAssistant"
+    copyright "Copyright (c) 2021 Eqela"
+    license "All rights reserved."
+    libraries [
+            "jk-app:0.26.0"
+            "jk-net:0.39.0"
+    ]
+}
